@@ -72,6 +72,20 @@ nav ul li a:hover, a.active{
     margin-top: 10px;
     word-spacing: 20px;
 }
+.btn {
+    border: none;
+    background-color: inherit;
+    padding: 6px 10px;
+    font-size: 30px;
+    cursor: pointer;
+    display: inline-block;
+    color: blue;
+    outline: none;
+  }
+  
+.btn:hover {
+    background: #eee;
+}
 .booking-form  .calculations{
     margin: 10px 0;
 }

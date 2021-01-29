@@ -51,20 +51,20 @@
             <div class="input-group f-class">
                 <div>
                     <label for="">First Class ($150)</label>
-                    <input class="inp-style inp-width" type="number" name="">
+                    <input id="first-class-input" class="inp-style inp-width" type="number" name="" value="0">
                 </div>
-                <div class="plus-minus-btn">
-                    <p>+ -</p>
+                <div class="plus-minus-btn"><!--first class button-->
+                    <p><button id="first-class-plus" class="btn success">+</button> <button id="first-class-minus" class="btn success">-</button></p>
                 </div>
             </div>
             
             <div class="input-group f-class">
                 <div>
                     <label for="">Economy ($100)</label>
-                    <input class="inp-style inp-width" type="number" name="">
+                    <input id="economy-class-input" class="inp-style inp-width" type="number" name="" value="0">
                 </div>
-                <div class="plus-minus-btn">
-                    <p> <span>+</span> <span>-</span> </p>
+                <div class="plus-minus-btn"><!--economy class button-->
+                    <p> <button class="btn success">+</button> <button class="btn success">-</button> </p>
                 </div>
             </div>
             <div class="calculations">
@@ -105,6 +105,41 @@
     </section>
 
     <!--Thank You-->
+
+    <script>
+
+        document.getElementById('first-class-plus').addEventListener('click', function(){
+            plusMinusBtn("plus");
+        })
+
+        document.getElementById('first-class-minus').addEventListener('click', function(){
+           plusMinusBtn("minus");
+
+            // const firstClassInput = document.getElementById('first-class-input');
+            // const firstClassNumberValue = parseInt(firstClassInput.value);
+            // const firstClassLatestValue = firstClassNumberValue - 1;
+            // firstClassInput.value = firstClassLatestValue;
+        })
+
+
+        function plusMinusBtn(plusMinus){
+            const firstClassInput = document.getElementById('first-class-input');
+            const firstClassNumberValue = parseInt(firstClassInput.value);
+            let firstClassLatestValue;
+            if(plusMinus == "plus"){
+                firstClassLatestValue = firstClassNumberValue + 1;
+            }
+            if(plusMinus == "minus"){
+                if(firstClassNumberValue > 0){
+                    firstClassLatestValue = firstClassNumberValue - 1;
+                }
+                else{
+                    firstClassLatestValue = 0;
+                }
+            }
+            firstClassInput.value = firstClassLatestValue;
+        }
+    </script>
 </body>
 
 </html>
