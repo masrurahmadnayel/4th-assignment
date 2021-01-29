@@ -64,7 +64,7 @@
                     <input id="economy-class-input" class="inp-style inp-width" type="number" name="" value="0">
                 </div>
                 <div class="plus-minus-btn"><!--economy class button-->
-                    <p> <button class="btn success">+</button> <button class="btn success">-</button> </p>
+                    <p> <button id="economy-class-plus" class="btn success">+</button> <button id="economy-class-minus" class="btn success">-</button> </p>
                 </div>
             </div>
             <div class="calculations">
@@ -73,7 +73,7 @@
                         <p>Subtotal</p>
                     </div>
                     <div class="right">
-                        <p>$500</p>
+                        <p id="subtotal">$0</p><!--550 default-->
                     </div>
                 </div>
 
@@ -82,7 +82,7 @@
                         <p>Charge 10% VAT</p>
                     </div>
                     <div class="right">
-                        <p>$50</p>
+                        <p>$0</p><!--50 default-->
                     </div>
                 </div>
                 <hr>
@@ -91,7 +91,7 @@
                         <h4>Total</h4>
                     </div>
                     <div class="right">
-                        <p>$550</p>
+                        <p>$0</p><!--550 default-->
                     </div>
                 </div>
             </div>
@@ -109,35 +109,52 @@
     <script>
 
         document.getElementById('first-class-plus').addEventListener('click', function(){
-            plusMinusBtn("plus");
+            plusMinusBtn("plus", 'first');
         })
 
         document.getElementById('first-class-minus').addEventListener('click', function(){
-           plusMinusBtn("minus");
+           plusMinusBtn("minus", 'first');
+        })
 
-            // const firstClassInput = document.getElementById('first-class-input');
-            // const firstClassNumberValue = parseInt(firstClassInput.value);
-            // const firstClassLatestValue = firstClassNumberValue - 1;
-            // firstClassInput.value = firstClassLatestValue;
+        document.getElementById('economy-class-plus').addEventListener('click', function(){
+            plusMinusBtn('plus', 'economy');
+        })
+
+        document.getElementById('economy-class-minus').addEventListener('click', function(){
+            plusMinusBtn('minus', 'economy');
         })
 
 
-        function plusMinusBtn(plusMinus){
-            const firstClassInput = document.getElementById('first-class-input');
-            const firstClassNumberValue = parseInt(firstClassInput.value);
-            let firstClassLatestValue;
+        function plusMinusBtn(plusMinus, className){
+            const ticketClassInput = document.getElementById(className + '-class-input');
+            const ticketClassNumberValue = parseInt(ticketClassInput.value);
+            let ticketClassLatestValue;
             if(plusMinus == "plus"){
-                firstClassLatestValue = firstClassNumberValue + 1;
+                ticketClassLatestValue = ticketClassNumberValue + 1;
             }
             if(plusMinus == "minus"){
-                if(firstClassNumberValue > 0){
-                    firstClassLatestValue = firstClassNumberValue - 1;
+                if(ticketClassNumberValue > 0){
+                    ticketClassLatestValue = ticketClassNumberValue - 1;
                 }
                 else{
-                    firstClassLatestValue = 0;
+                    ticketClassLatestValue = 0;
                 }
             }
-            firstClassInput.value = firstClassLatestValue;
+            ticketClassInput.value = ticketClassLatestValue;
+
+            // this line is not working below..................
+
+            // let subTotal1;
+            // let subTotal2;
+            // if(className == 'first' && (plusMinus == 'plus' || plusMinus == 'minus')){
+            //     subTotal1 = ticketClassLatestValue * 150;
+            // }
+            // if(className == 'economy' && (plusMinus == 'plus' || plusMinus == 'minus')){
+            //     subTotal2 = ticketClassLatestValue * 100;
+            // }
+            // const subtotalString = parseFloat(document.getElementById('subtotal').value);
+            // const subtotal = subTotal1 + subTotal2 + subtotalString;
+            // document.getElementById('subtotal').innerText = '$' + subtotal;
         }
     </script>
 </body>
