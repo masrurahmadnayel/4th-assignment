@@ -118,10 +118,7 @@
         <script>
 
             function plusMinusBtn(plusMinus, className) {
-                const ticketClassInput = document.getElementById(className + '-class-input');
-                const ticketClassNumberValue = parseInt(ticketClassInput.value);
-               
-                // const ticketClassNumberValue = getInput(className);
+                const ticketClassNumberValue = getInput(className);
                 let ticketClassLatestValue;
                 if (plusMinus == "plus") {
                     ticketClassLatestValue = ticketClassNumberValue + 1;
@@ -134,16 +131,14 @@
                         ticketClassLatestValue = 0;
                     }
                 }
-                ticketClassInput.value = ticketClassLatestValue;
+                document.getElementById(className + '-class-input').value = ticketClassLatestValue;
                 calculatePrice();
-
             }
 
 
             function calculatePrice() {
                 const firstClassNumber = getInput('first');
                 const economyClassNumber = getInput('economy');
-
                 const subtotal = firstClassNumber * 150 + economyClassNumber * 100;
                 const vat = subtotal * 0.1;
                 const total = subtotal + vat;
