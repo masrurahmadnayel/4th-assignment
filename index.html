@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="style.css">
 </head>
 
-<body>
+<body id="body">
     <!--Header and Menu Section-->
     <header class="container">
         <nav>
@@ -102,7 +102,8 @@
                     </div>
                 </div>
             </div>
-            <button class="btn-style">Book Now</button>
+            <p id="error-message">Please buy our service first, Then book.</p>
+            <button id="submit-btn" class="btn-style">Book Now</button>
         </div>
 
         <div class="booking-content">
@@ -112,10 +113,64 @@
                 voluptatibus quam</p>
         </div>
         </section>
+        <section>
+            <div id="welcome-card">
+                <h2>Thanks for believing us</h2>
+                <h4>Have a great journey</h4>
+                <div id="welcome-image">
+                    <img src="images/mr-bean.png" alt="">
+                </div>
+                <h3>Your seat has been reserved</h3>
 
+                <div id="welcome-information" class="calculations">
+                    <div class="amount">
+                        <div class="left">
+                            <p>Subtotal</p>
+                        </div>
+                        <div class="right">
+                            <p id="welcome-subtotal">$0</p>
+                            <!--550 default-->
+                        </div>
+                    </div>
+    
+                    <div class="amount">
+                        <div class="left">
+                            <p>Charge 10% VAT</p>
+                        </div>
+                        <div class="right">
+                            <p id="welcome-vat">$0</p>
+                            <!--50 default-->
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="amount">
+                        <div class="left">
+                            <h4>Total</h4>
+                        </div>
+                        <div class="right">
+                            <p id="welcome-total">$0</p>
+                            <!--550 default-->
+                        </div>
+                    </div>
+                </div>
+                <div id="button-div">
+                    <button class="btn welcome-btn">OK</button>
+                </div>
+            </div>
+        </section>
         <!--Thank You-->
 
         <script>
+            function getInput(className){
+                const ClassInput = document.getElementById(className + '-class-input');
+                const ClassNumber = parseInt(ClassInput.value);
+                return ClassNumber;
+            }
+
+
+            function documentSelector(idName, result){
+                document.getElementById(idName).innerText = '$' + result;
+            }
 
             function plusMinusBtn(plusMinus, className) {
                 const ticketClassNumberValue = getInput(className);
@@ -145,19 +200,31 @@
                 documentSelector('subtotal', subtotal);
                 documentSelector('vat', vat);
                 documentSelector('total', total);
+                documentSelector('welcome-subtotal', subtotal);
+                documentSelector('welcome-vat', vat);
+                documentSelector('welcome-total', total);
             }
 
+            document.getElementById('submit-btn').addEventListener('click', function(){
+                const subTotal = document.getElementById('subtotal').innerText;
+                const vat = document.getElementById('vat').innerText;
+                const total = document.getElementById('total').innerText;
+                if(subTotal === '$0' || vat === '$0' || total === '$0'){
+                    document.getElementById('error-message').style.display = 'block';
+                }
+                else{
+                    document.getElementById('error-message').style.display = 'none';
+                    document.getElementById('welcome-card').style.display = 'block';
+                }
+                
+            })
+            document.getElementById('button-div').addEventListener('click', function(){
+                document.getElementById('welcome-card').style.display = 'none';
+            })
 
-            function getInput(className){
-                const ClassInput = document.getElementById(className + '-class-input');
-                const ClassNumber = parseInt(ClassInput.value);
-                return ClassNumber;
-            }
 
 
-            function documentSelector(idName, result){
-                document.getElementById(idName).innerText = '$' + result;
-            }
+            
         </script>
 </body>
 
