@@ -41,7 +41,7 @@
             <div class="inputs">
                 <div class="input-group">
                     <label" for="">Departure</label>
-                    <input class="inp-style" type="date" name="">
+                        <input class="inp-style" type="date" name="">
                 </div>
                 <div class="input-group">
                     <label for="">Return</label>
@@ -53,18 +53,22 @@
                     <label for="">First Class ($150)</label>
                     <input id="first-class-input" class="inp-style inp-width" type="number" name="" value="0">
                 </div>
-                <div class="plus-minus-btn"><!--first class button-->
-                    <p><button id="first-class-plus" class="btn success">+</button> <button id="first-class-minus" class="btn success">-</button></p>
+                <div class="plus-minus-btn">
+                    <!--first class button-->
+                    <p><button onclick="plusMinusBtn('plus', 'first')" class="btn success">+</button> <button
+                            onclick="plusMinusBtn('minus', 'first')" class="btn success">-</button></p>
                 </div>
             </div>
-            
+
             <div class="input-group f-class">
                 <div>
                     <label for="">Economy ($100)</label>
                     <input id="economy-class-input" class="inp-style inp-width" type="number" name="" value="0">
                 </div>
-                <div class="plus-minus-btn"><!--economy class button-->
-                    <p> <button id="economy-class-plus" class="btn success">+</button> <button id="economy-class-minus" class="btn success">-</button> </p>
+                <div class="plus-minus-btn">
+                    <!--economy class button-->
+                    <p> <button onclick="plusMinusBtn('plus', 'economy')" class="btn success">+</button> <button
+                            onclick="plusMinusBtn('minus', 'economy')" class="btn success">-</button> </p>
                 </div>
             </div>
             <div class="calculations">
@@ -73,7 +77,8 @@
                         <p>Subtotal</p>
                     </div>
                     <div class="right">
-                        <p id="subtotal">$0</p><!--550 default-->
+                        <p id="subtotal">$0</p>
+                        <!--550 default-->
                     </div>
                 </div>
 
@@ -82,7 +87,8 @@
                         <p>Charge 10% VAT</p>
                     </div>
                     <div class="right">
-                        <p>$0</p><!--50 default-->
+                        <p id="vat">$0</p>
+                        <!--50 default-->
                     </div>
                 </div>
                 <hr>
@@ -91,7 +97,8 @@
                         <h4>Total</h4>
                     </div>
                     <div class="right">
-                        <p>$0</p><!--550 default-->
+                        <p id="total">$0</p>
+                        <!--550 default-->
                     </div>
                 </div>
             </div>
@@ -100,63 +107,63 @@
 
         <div class="booking-content">
             <h1>discover <br> around the world</h1>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicingelit. Provident voluptatibus quam fuga laborumalias veniam libero autem quasi maxime ullam vero nama imi dolor, architecto ab facilis eaque deserunt nobise voluptatibus quam</p>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicingelit. Provident voluptatibus quam fuga laborumalias
+                veniam libero autem quasi maxime ullam vero nama imi dolor, architecto ab facilis eaque deserunt nobise
+                voluptatibus quam</p>
         </div>
-    </section>
+        </section>
 
-    <!--Thank You-->
+        <!--Thank You-->
 
-    <script>
+        <script>
 
-        document.getElementById('first-class-plus').addEventListener('click', function(){
-            plusMinusBtn("plus", 'first');
-        })
-
-        document.getElementById('first-class-minus').addEventListener('click', function(){
-           plusMinusBtn("minus", 'first');
-        })
-
-        document.getElementById('economy-class-plus').addEventListener('click', function(){
-            plusMinusBtn('plus', 'economy');
-        })
-
-        document.getElementById('economy-class-minus').addEventListener('click', function(){
-            plusMinusBtn('minus', 'economy');
-        })
-
-
-        function plusMinusBtn(plusMinus, className){
-            const ticketClassInput = document.getElementById(className + '-class-input');
-            const ticketClassNumberValue = parseInt(ticketClassInput.value);
-            let ticketClassLatestValue;
-            if(plusMinus == "plus"){
-                ticketClassLatestValue = ticketClassNumberValue + 1;
-            }
-            if(plusMinus == "minus"){
-                if(ticketClassNumberValue > 0){
-                    ticketClassLatestValue = ticketClassNumberValue - 1;
+            function plusMinusBtn(plusMinus, className) {
+                const ticketClassInput = document.getElementById(className + '-class-input');
+                const ticketClassNumberValue = parseInt(ticketClassInput.value);
+               
+                // const ticketClassNumberValue = getInput(className);
+                let ticketClassLatestValue;
+                if (plusMinus == "plus") {
+                    ticketClassLatestValue = ticketClassNumberValue + 1;
                 }
-                else{
-                    ticketClassLatestValue = 0;
+                if (plusMinus == "minus") {
+                    if (ticketClassNumberValue > 0) {
+                        ticketClassLatestValue = ticketClassNumberValue - 1;
+                    }
+                    else {
+                        ticketClassLatestValue = 0;
+                    }
                 }
+                ticketClassInput.value = ticketClassLatestValue;
+                calculatePrice();
+
             }
-            ticketClassInput.value = ticketClassLatestValue;
 
-            // this line is not working below..................
 
-            // let subTotal1;
-            // let subTotal2;
-            // if(className == 'first' && (plusMinus == 'plus' || plusMinus == 'minus')){
-            //     subTotal1 = ticketClassLatestValue * 150;
-            // }
-            // if(className == 'economy' && (plusMinus == 'plus' || plusMinus == 'minus')){
-            //     subTotal2 = ticketClassLatestValue * 100;
-            // }
-            // const subtotalString = parseFloat(document.getElementById('subtotal').value);
-            // const subtotal = subTotal1 + subTotal2 + subtotalString;
-            // document.getElementById('subtotal').innerText = '$' + subtotal;
-        }
-    </script>
+            function calculatePrice() {
+                const firstClassNumber = getInput('first');
+                const economyClassNumber = getInput('economy');
+
+                const subtotal = firstClassNumber * 150 + economyClassNumber * 100;
+                const vat = subtotal * 0.1;
+                const total = subtotal + vat;
+                documentSelector('subtotal', subtotal);
+                documentSelector('vat', vat);
+                documentSelector('total', total);
+            }
+
+
+            function getInput(className){
+                const ClassInput = document.getElementById(className + '-class-input');
+                const ClassNumber = parseInt(ClassInput.value);
+                return ClassNumber;
+            }
+
+
+            function documentSelector(idName, result){
+                document.getElementById(idName).innerText = '$' + result;
+            }
+        </script>
 </body>
 
 </html>
